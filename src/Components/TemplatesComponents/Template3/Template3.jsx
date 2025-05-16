@@ -26,21 +26,22 @@ function Template3() {
         : "";
 
     const formatShortMonthYear = (month, year) => {
-        const monthsShort = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-        ];
-        const monthIndex = parseInt(month, 10) - 1;
-        const monthName = monthsShort[monthIndex] || "Mon";
+        const monthsShort = {
+            January: "Jan", February: "Feb", March: "Mar", April: "Apr",
+            May: "May", June: "Jun", July: "Jul", August: "Aug",
+            September: "Sep", October: "Oct", November: "Nov", December: "Dec"
+        };
+
+        const monthName = monthsShort[month] || month || "Month";
         return `${monthName} ${year || "Year"}`;
-
-        
-
     };
+
     return (
         <div className='template3-container'>
             <div className='template3-left'>
-                <img className='template3-profile-pic' src={profileImage} alt="profile-pic" />
+                {profileImage ? (
+                    <img className='template3-profile-pic' src={profileImage} alt="profile-pic" />
+                ) : null}
                 <div className='template3-name'>{firstName} {lastName}</div>
                 <div className='template3-title'>{currentJobTitle}</div>
                 <div className='template3-contact'>
@@ -68,7 +69,7 @@ function Template3() {
                     <div className='template3-section-content'>
                         {workEx.map(item => (
                             <div key={shortid.generate()} style={{ marginBottom: "1rem" }}>
-                                <b style={{fontSize:'21px'}}>{item.employer}</b>
+                                <b style={{ fontSize: '21px' }}>{item.employer}</b>
                                 <div>{`Worked in ${item.employer} as ${item.jobTitle} from ${formatShortMonthYear(item.startMonth, item.startYear)} to ${formatShortMonthYear(item.endMonth, item.endYear)}.`}</div>
                                 <p>at {item.location}</p>
                             </div>
@@ -84,12 +85,12 @@ function Template3() {
                     <div className='template3-section-content'>
                         {education.map(item => {
                             const degree =
-                            item.degree && item.degree !== "Select different degree"
-                              ? item.degree
-                              : item.otherDegree || "Your Degree";
+                                item.degree && item.degree !== "Select different degree"
+                                    ? item.degree
+                                    : item.otherDegree || "Your Degree";
                             return (
                                 <div key={shortid.generate()} style={{ marginBottom: "1rem" }}>
-                                    <b style={{fontSize:'21px'}}>{degree} </b>
+                                    <b style={{ fontSize: '21px' }}>{degree} </b>
                                     <p>I have pursued my {item.degree} in {item.fieldOfStudy} from <b>{item.schoolName}</b> at {item.schoolLocation}.</p>
                                     <p>Graduation: {formatShortMonthYear(item.gradMonth, item.gradYear)}</p>
                                 </div>

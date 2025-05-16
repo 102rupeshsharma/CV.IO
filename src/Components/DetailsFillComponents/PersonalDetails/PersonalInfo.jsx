@@ -48,7 +48,7 @@ const PersonalInfo = () => {
 
         <p className="h1">What’s the best way for employers to contact you?</p>
         <p className="h2">We suggest including an email and phone number.</p>
-        <p>* indicates a required field</p>
+        <p style={{marginBottom:'15px'}}><span style={{color:'red', margin:'0px 5px'}}>*</span>indicates a required field</p>
 
         <div className="upload-image-block">
           <ProfileUpload />

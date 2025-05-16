@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Education.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router';
@@ -11,7 +11,7 @@ import BottomNavigation from '../BottomNavigation/BottomNavigation';
 const Education = () => {
     const navigate = useNavigate();
     const educationHeads = useSelector(state => state.dataStore.education);
-      const [submitted, setSubmitted] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const dispatch = useDispatch();
 
     const onChangeHandler = (key, value, index, errorMessage = undefined) => {
@@ -64,9 +64,9 @@ const Education = () => {
     const handleNext = () => {
         setSubmitted(true);
         if (isFormValid) {
-          navigate('/progress/keyskills');
+            navigate('/progress/keyskills');
         }
-      };
+    };
 
     const isFormValid = educationHeads.every((edu) =>
         edu.schoolName.trim() !== "" &&
@@ -87,7 +87,7 @@ const Education = () => {
 
                 <p className='h1'>Tell us about your education</p>
                 <p className='h2'>Enter your education experience so far, even if you are a current student or did not graduate.</p>
-                <p>* indicates a required field</p>
+                <p style={{ marginBottom: '18px' }}><span style={{ color: 'red', margin: '0px 5px' }}>*</span>indicates a required field</p>
 
                 {educationHeads.map((education, index) => (
                     <div className="education-input-container" key={education.id} style={{ marginTop: index === 0 ? '0px' : '50px' }}>
@@ -111,7 +111,7 @@ const Education = () => {
                                 placeholder="Gulbarga"
                                 type="text"
                                 value={education.schoolLocation || ""}
-                                // validation={{ required: true }}
+                                validation={{ required: true }}
                                 onChange={(val, error) => onChangeHandler('schoolLocation', val, index, error)}
                             />
                         </div>
@@ -142,14 +142,15 @@ const Education = () => {
                                 placeholder="Enter your degree"
                                 type="text"
                                 value={education.otherDegree || ""}
+                                validation={{ required: true }}
                                 onChange={(val, error) => onChangeHandler('otherDegree', val, index, error)}
                             />
                         </div>
 
                         {/* Field of Study Always on its own row */}
                         <div className="education-inputs">
-                            <label>Field of Study</label>
                             <TextField
+                                label="Field of Study"
                                 type="text"
                                 elementId="fieldOfStudy"
                                 placeholder="e.g. Financial Accounting"
@@ -160,7 +161,7 @@ const Education = () => {
 
                         <div className="education-shortInput-container">
                             <div className="education-short-inputs">
-                                <label>Graduation Month</label>
+                                <label className='text-label'>Graduation Month</label>
                                 <select
                                     className="education-select"
                                     value={education.gradMonth}
@@ -172,7 +173,7 @@ const Education = () => {
                                 </select>
                             </div>
                             <div className="education-col">
-                                <label>Graduation Year</label>
+                                <label className='text-label'>Graduation Year</label>
                                 <select
                                     className="education-select"
                                     value={education.gradYear}
@@ -204,7 +205,7 @@ const Education = () => {
             </div>
 
             <div className="education-right">
-                <p style={{ textAlign: 'center', color: '#aaa' }}>Preview or Template area</p>
+                {/* <p style={{ textAlign: 'center', color: '#aaa' }}>Preview or Template area</p> */}
             </div>
 
         </div>

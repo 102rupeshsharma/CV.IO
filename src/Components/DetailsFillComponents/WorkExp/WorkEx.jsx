@@ -89,7 +89,7 @@ const WorkEx = () => {
                 </button>
                 <p className='h1'>Tell us about your most recent job</p>
                 <p className="h2">We’ll start there and work backward.</p>
-                <p>* indicates a required field</p>
+                <p style={{marginBottom:'18px'}}><span style={{color:'red', margin:'0px 5px'}}>*</span>indicates a required field</p>
 
                 {workHeads.map((work, index) => (
                     <div className="workexp-input-container" key={work.id} style={{ marginTop: index === 0 ? '0px' : '50px' }}>
@@ -110,7 +110,7 @@ const WorkEx = () => {
                             <TextField
                                 label="EMPLOYER"
                                 elementId="employer"
-                                placeholder="e.g. Junior Software Developer"
+                                placeholder="e.g. Amazon, Google, Facebook"
                                 type="text"
                                 value={work.employer || ""}
                                 validation={{ required: true }}
@@ -134,7 +134,7 @@ const WorkEx = () => {
 
                         <div className="workexp-dates-row">
                             <div className="date-field">
-                                <label>START DATE</label>
+                                <label className='text-label'>START DATE</label>
                                 <select
                                     className="workexp-select"
                                     value={work.startMonth}
@@ -158,7 +158,7 @@ const WorkEx = () => {
                                 </select>
                             </div>
                             <div className="date-field">
-                                <label>END DATE</label>
+                                <label className='text-label'>END DATE</label>
                                 <select
                                     className="workexp-select"
                                     value={work.endMonth}
@@ -202,7 +202,7 @@ const WorkEx = () => {
             </div>
 
             <div className="workexp-right">
-                <p style={{ textAlign: 'center', color: '#aaa' }}>Preview or Template area</p>
+                {/* <p style={{ textAlign: 'center', color: '#aaa' }}>Preview or Template area</p> */}
             </div>
         </div>
     );

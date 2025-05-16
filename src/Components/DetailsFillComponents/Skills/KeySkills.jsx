@@ -73,6 +73,7 @@ function KeySkills() {
           placeholder="e.g., React, Python, Communication..."
           className="keyskills-input"
           value={inputSkill}
+          validation={{ required: true}}
           onChange={(e) => setInputSkill(e.target.value)}
           onKeyDown={handleKeyPress}
         />
@@ -93,13 +94,14 @@ function KeySkills() {
       {submitted && skills.length === 0 && (
         <p className="validation-error">Please add at least one skill to continue.</p>
       )}
-
+  <div className='nav-btn'>
       <BottomNavigation
         // prevPagePath="/"
         // nextPagePath="/progress/workex"
         isFormValid={isFormValid}
         onNext={handleNext} 
       />
+      </div>
     </div>
   );
 }

@@ -26,36 +26,22 @@ function Template4() {
         : "";
 
     const formatShortMonthYear = (month, year) => {
+        const monthsShort = {
+            January: "Jan", February: "Feb", March: "Mar", April: "Apr",
+            May: "May", June: "Jun", July: "Jul", August: "Aug",
+            September: "Sep", October: "Oct", November: "Nov", December: "Dec"
+        };
 
-        console.log("Formatting:", { month, year });
-
-        if (
-            String(month).toLowerCase() === "present" ||
-            String(year).toLowerCase() === "present"
-        ) {
-            return "Present";
-        }
-        if (!month || !year || isNaN(month) || isNaN(year)) {
-            return "";
-        }
-
-        const monthsShort = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        ];
-        const monthIndex = parseInt(month, 10) - 1;
-        if (monthIndex < 0 || monthIndex > 11) {
-            return "";
-        }
-
-        const monthName = monthsShort[monthIndex];
-        return `${monthName} ${year}`;
+        const monthName = monthsShort[month] || month || "Month";
+        return `${monthName} ${year || "Year"}`;
     };
 
     return (
         <div className='template4-container'>
             <div className='template4-left'>
-                <img className='template4-profile-pic' src={profileImage} alt="profile-pic" />
+                {profileImage ? (
+                    <img className='template3-profile-pic' src={profileImage} alt="profile-pic" />
+                ) : null}
                 <div className='template4-name'>{firstName} {lastName}</div>
                 <div className='template4-title'>{currentJobTitle}</div>
                 <div className='template4-contact'>

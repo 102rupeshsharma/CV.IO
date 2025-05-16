@@ -1,4 +1,3 @@
-// InputComponents/SelectField/SelectField.jsx
 import React from 'react';
 import './SelectField.css';
 

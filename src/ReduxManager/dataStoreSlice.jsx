@@ -32,6 +32,7 @@ export const dataStoreSlice = createSlice({
     ],
     education: [
       {
+        id: uuidv4(),
         schoolName: "",
         schoolLocation: "",
         degree: "No Degree",

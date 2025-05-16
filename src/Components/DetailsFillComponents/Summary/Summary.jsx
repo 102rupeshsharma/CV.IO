@@ -44,10 +44,9 @@ const Summary = () => {
 
         <p className="h1">Tell us about yourself</p>
         <p className="h2">Write a short summary to describe who you are and what you're looking for.</p>
-        <p>* indicates a required field</p>
 
         <div className="summary-input-area">
-          <label className="summary-label">ABOUT YOU *</label>
+          <label className="summary-label">ABOUT YOU </label>
           <TextArea
             elementId="objective"
             rows={6}
@@ -62,8 +61,8 @@ const Summary = () => {
           onNext={handleNext}
         />
       </div>
-      <div className="summary-right">
-      </div>
+      {/* <div className="summary-right">
+      </div> */}
     </div>
   );
 };
