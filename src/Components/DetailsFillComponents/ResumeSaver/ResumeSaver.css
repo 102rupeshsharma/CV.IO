@@ -1,0 +1,35 @@
+.resume-preview {
+  width: 210mm;
+  min-height: 297mm;
+  background-color: transparent;
+  border: 2px solid #00a8cc;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* When preparing for download (PDF), remove shadows and borders */
+.export-mode {
+  box-shadow: none !important;
+  border: none !important;
+  background-color: #ffffff !important;
+  color-adjust: exact !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  margin: 0 !important;
+}
+
+/* Optional: Button styling */
+.download-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.download-btn {
+  padding: 10px 20px;
+  background-color: #00a8cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}

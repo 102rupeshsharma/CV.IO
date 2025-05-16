@@ -1,0 +1,64 @@
+.personalinfo-container {
+  display: flex;
+  padding: 40px 40px 40px 100px;
+}
+
+.personalinfo-left {
+  flex: 0 0 65%;
+  font-weight: 700;
+}
+
+.upload-image-block {
+  display: inline-block;
+  padding: 8px 0;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.personalinfo-right {
+  flex: 0 0 30%;
+  padding-left: 40px;
+}
+
+.personalinfo-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.personalInfo-inputs {
+  width: 50%;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+
+.personalinfo-shortInput-container {
+  display: flex;
+  gap: 20px;
+  width: auto;
+  margin: 0 0 0 15px;
+}
+
+.personalinfo-col-12 {
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.personalinfo-label {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 14px;
+  margin-left: 6px;
+  color: #1e1e1e;
+}
+
+.personalinfo-form-control {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}

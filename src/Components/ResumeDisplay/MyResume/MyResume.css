@@ -1,0 +1,60 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleIn 0.3s ease-in-out;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.resume-a4 {
+  width: 825px;
+  min-height: 95vh;
+  box-sizing: border-box;
+}
+
+.resume-a4::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+
+.resume-a4 {
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+}
+
+.resume-a4::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+
+.no-resume-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

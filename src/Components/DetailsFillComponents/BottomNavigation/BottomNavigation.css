@@ -1,0 +1,28 @@
+.bottom-nav-container {
+  margin-top: 1rem;
+}
+
+.bottom-nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+}
+
+.bottom-nav-left {
+  display: flex;
+  background-color: rgb(200, 255, 229);
+}
+
+.btn {
+  background-color: #0a2e5c;
+  width: 142px;
+  height: 55px;
+  border-radius: 0px;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #1458af;
+  color: white;
+}
