@@ -1,0 +1,52 @@
+.textfield-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.textfield-label {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #1e1e1e;
+}
+
+.required-asterisk {
+  color: red;
+  font-size: inherit;
+  vertical-align: middle;
+}
+
+.textfield-wrapper-small {
+  width: 210px; 
+  color: skyblue;
+}
+
+.textfield-small {
+  width: 100%; 
+}
+
+.textfield-input {
+  padding: 12px 14px;
+  border: 1px solid #cfcfcf;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.textfield-input:focus {
+  border-color: #0073e6;
+  border-width: 2px;
+  outline: none;
+  background-color: #fff;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.textfield-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

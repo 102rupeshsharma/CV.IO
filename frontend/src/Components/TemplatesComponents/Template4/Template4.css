@@ -1,0 +1,112 @@
+.template4-container {
+  width: 100%;
+  height: 297mm;
+  border: 1px solid #4b6982;
+    background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.template4-left {
+  width: 25%;
+  background-color: #4b6982;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  color: white;
+  height: 100%;
+}
+
+.template4-profile-pic {
+  height: 180px;
+  width: 140px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  background-color: grey;
+}
+
+.template4-name {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.template4-title {
+  font-size: 18px;
+  color: #adccc7;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.template4-contact {
+  margin-top: 2rem;
+  font-size: 15px;
+  color: #f7f7f7;
+  line-height: 1.6;
+  width: 100%;
+}
+
+.template4-contact-label {
+  background-color: white;
+  color: black;
+  padding: 2px 6px;
+  font-weight: bold;
+  margin-top: 1rem;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.template4-right {
+  width: 75%;
+  padding: 2rem 2.5rem;
+  font-size: 17px;
+  background-color: white;
+  color: black;
+}
+
+.template4-objective {
+  text-align: justify;
+  font-weight: 100;
+}
+
+.template4-section-title {
+  background-color: #f8f9fa;
+  color: #4b6982;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #164d87;
+  margin-top: 20px;
+}
+
+.template4-section-content {
+  margin-top: 1rem;
+  padding-left: 0.5rem;
+  text-align: justify;
+}
+
+.template4-divider {
+  height: 4px;
+  background-color: #4b6982;
+  border: none;
+  margin: 17px 0;
+}
+
+.template4-skill-list {
+  padding-left: 2rem;
+  margin-top: 1rem;
+}
+
+.template4-skill-list li {
+  font-weight: 600;
+  margin: 10px 30px;
+  font-size: 17px;
+}
+
+p {
+  font-weight: 100;
+  margin-bottom: 0px;
+}

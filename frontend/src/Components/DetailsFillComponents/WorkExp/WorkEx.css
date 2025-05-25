@@ -1,0 +1,110 @@
+.workexp-container {
+  display: flex;
+  padding: 40px 40px 40px 100px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.workexp-title {
+  flex: 0 0 65%;
+  font-weight: bold;
+}
+
+.workexp-right {
+  flex: 0 0 30%;
+  padding-left: 40px;
+}
+
+.back {
+  color: #0077cc;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: inline-block;
+  gap: 2px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 20px 0 10px;
+}
+
+h2 {
+  font-size: 16px;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.workexp-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.workexp-inputs {
+  width: 50%;
+  padding: 0 15px;
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease;
+  min-height: 70px;
+}
+
+.workexp-dates-row {
+  display: flex;
+  gap: 20px;
+  margin: 0 0 20px 15px;
+  flex-wrap: nowrap;
+  width: calc(100% - 15px);
+}
+
+.workexp-dates-row .date-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-field label {
+  font-weight: bold;
+}
+
+.workexp-select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cecece;
+  background-color: white;
+}
+
+.workexp-select:focus {
+  border-color: #0073e6;
+  border-width: 2px;
+  outline: none;
+  background-color: #fff;
+}
+
+.workexp-buttons {
+  display: flex;
+  gap: 20px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+
+.workexp-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #0a2e5c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.workexp-button:hover {
+  background-color: #1458af;
+  transition: all 0.1s ease-in-out;
+}
+
+.hide {
+  display: block;
+  visibility: hidden;
+}

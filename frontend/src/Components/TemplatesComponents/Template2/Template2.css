@@ -1,0 +1,90 @@
+.template2-container {
+  width: 100%;
+  border: 5px solid #f0bebe;
+  background-color: #fffeec;
+  font-family: 'Serif';
+  padding: 7px;
+}
+
+.template2-header {
+  display: flex;
+  align-items: center;
+  height: 200px;
+  background-color: #f0bebe;
+}
+
+.profile-pic-container {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.name-container {
+  flex: 0 0 50%;
+  text-align: center;
+}
+
+.name-text {
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+}
+
+.title-text {
+  font-size: 20px;
+  color: white;
+}
+
+.contact-info {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  float: right;
+}
+
+.section-divider {
+  height: 5px;
+  background-color: #f0bebe;
+  margin: 1rem 0;
+}
+
+.objective-text {
+  text-align: justify;
+  font-size: 14px;
+}
+
+.objective-text p {
+  margin: 10px 0px;
+}
+
+.section {
+  display: flex;
+  /* gap: 80px; */
+  margin: 0 1rem;
+}
+
+.section-title {
+  flex: 0 0 25%;
+  color: #de5b7b;
+  font-size: 22px;
+  margin-bottom: 0.5rem;
+}
+
+.section-content {
+  flex: 0 0 75%;
+  font-size: 14px;
+  padding-left: 65px;
+}
+
+.skill-item {
+  list-style-type: style;
+}

@@ -1,0 +1,93 @@
+.navbar-wrapper {
+  color: #07588a;
+  border-radius: 10px;
+  margin: 15px 80px 0 80px;
+}
+
+.custom-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 95px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.navbar-icon {
+  margin-right: 12px;
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.logo-blue {
+  color: #005ce6;
+  font-size: 50px;
+}
+
+.logo-dark {
+  color: #333333;
+  font-size: 50px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 30px;
+}
+
+/* New wrapper with relative position for dropdown */
+.user-section-wrapper {
+  position: relative;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.username {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* Dropdown styles */
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  transition: all 0.2s ease;
+}
+
+.dropdown span {
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #ff4e4e;
+}
+
+.login-button {
+  background-color: transparent !important;
+  color: rgb(45, 99, 217);
+  font-weight: bold;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 24px;
+}

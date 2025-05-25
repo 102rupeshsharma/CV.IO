@@ -1,0 +1,110 @@
+.education-container {
+  display: flex;
+  padding: 40px 40px 40px 100px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.education-title {
+  flex: 0 0 65%;
+  font-weight: bold;
+}
+
+.education-right {
+  flex: 0 0 30%;
+  padding-left: 40px;
+}
+
+
+.h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 20px 0 10px;
+}
+
+.h2 {
+  font-size: 16px;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.education-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.education-inputs {
+  width: 50%;
+  padding: 0 15px;
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease;
+  min-height: 70px;
+}
+
+.education-shortInput-container {
+  display: flex;
+  gap: 20px;
+  width: auto;
+  margin: 0 0 0 15px;
+}
+
+.education-select,
+.education-input {
+  width: 100%;
+  margin-top: 6px;
+  background-color: #fff;
+  padding: 14px 14px;
+  border: 1px solid #cecece;
+}
+
+.education-short-inputs select:focus, .education-col select:focus {
+  border-color: #0073e6;
+  border-width: 2px;
+  outline: none;
+  background-color: #fff;
+}
+
+
+.education-inputs {
+  transition: all 0.1s ease-in-out;
+}
+
+.education-inputs.hide {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.education-inputs.show {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.1s ease;
+}
+
+.education-buttons {
+  display: flex;
+  gap: 30px;
+  padding-left: 15px;
+}
+
+.education-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #0a2e5c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.education-button:hover {
+  background-color: #1458af;
+  transition: all 0.1s ease-in-out;
+}
+
+.text-label {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #1e1e1e;
+}

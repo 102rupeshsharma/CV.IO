@@ -1,0 +1,49 @@
+body {
+  background-color: #f5f5f5;
+  font-family: headingFont;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: headingFont;
+  src: url(../public/univeralFont.ttf);
+}
+
+.back {
+  color: #0077cc;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: inline-block;
+  gap: 2px;
+  border: none;
+  background-color: transparent;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.h1 {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 10px 0 10px;
+}
+
+.h2 {
+  font-size: 18px;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.placeholder {
+  background-color: transparent!important;
+  padding-left: 15px;
+}
+
+ol, ul {
+  padding-left: 0rem !important;
+  font-weight: bold;
+  font-size: 15px;
+}

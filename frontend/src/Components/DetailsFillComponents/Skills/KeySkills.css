@@ -1,0 +1,100 @@
+.keyskills-container {
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+}
+
+.keyskills-header {
+  margin-bottom: 2rem;
+}
+
+.keyskills-back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.keyskills-heading {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.keyskills-subheading {
+  font-size: 1rem;
+  color: #666;
+}
+
+.keyskills-divider {
+  margin: 1.5rem 0;
+  border: 1px solid #ccc;
+}
+
+.keyskills-input-group {
+  display: flex;
+  margin-bottom: 1rem;
+  max-width: 500px;
+  flex-wrap: wrap;
+}
+
+.keyskills-input {
+  width: 400px;
+  padding: 14px 14px;
+  border: 1px solid #cfcfcf;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.keyskills-input:focus {
+  border-color: #0073e6;
+  border-width: 2px;
+  outline: none;
+  background-color: #fff;
+}
+
+.keyskills-add-btn {
+  background-color: #0a2e5c;
+  color: white;
+  padding: 5px 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.keyskills-add-btn:hover {
+  background-color: #1458af;
+}
+
+.keyskills-skill-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.keyskills-skill-tag {
+  background-color: #e9ecef;
+  color: #333;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.keyskills-skill-delete {
+  background: none;
+  border: none;
+  margin-left: 8px;
+  color: #dc3545;
+  font-size: 30px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.nav-btn {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
