@@ -1,137 +1,118 @@
-import traceback
 from flask import Flask, request, jsonify
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from flask_cors import CORS
-import pymysql
-import bcrypt
 from dotenv import load_dotenv
-import os
-import re
+import bcrypt
 import jwt
-from datetime import datetime, timedelta
+import os
+import datetime
+from functools import wraps
 
+# -------------------- Load .env variables --------------------
 load_dotenv()
 
+# -------------------- App Configuration --------------------
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
-db_config = {
-    'host': os.getenv('HOST'),
-    'user': os.getenv('USER'),
-    'password': os.getenv('PASSWORD'),
-    'database': os.getenv('DATABASE')
-}
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-JWT_SECRET = os.getenv('JWT_SECRET', 'secretkey')
+mongo = PyMongo(app)
+users_collection = mongo.db.users
 
-def connect_db():
-    return pymysql.connect(**db_config, cursorclass=pymysql.cursors.DictCursor)
+# -------------------- JWT Token Decorator --------------------
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
 
-def init_db():
-    try:
-        connection = connect_db()
-        with connection.cursor() as cursor:
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    username VARCHAR(255) NOT NULL,
-                    email VARCHAR(255) NOT NULL UNIQUE,
-                    password_hash VARCHAR(255) NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                );
-            """)
-        connection.commit()
-    except pymysql.MySQLError as e:
-        print("Error initializing database:", e)
-    finally:
-        connection.close()
+        if 'Authorization' in request.headers:
+            try:
+                token = request.headers['Authorization'].split(" ")[1]
+            except IndexError:
+                return jsonify({"message": "Token format is invalid"}), 401
 
-@app.route('/')
-def index():
-    return "Backend is running!"
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 401
 
+        try:
+            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            current_user = users_collection.find_one({"_id": ObjectId(data["user_id"])})
+            if not current_user:
+                raise Exception("User not found")
+        except jwt.ExpiredSignatureError:
+            return jsonify({"message": "Token expired!"}), 401
+        except Exception as e:
+            return jsonify({"message": "Token is invalid!", "error": str(e)}), 401
+
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+# -------------------- Register Route --------------------
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    if not data:
-        return jsonify({"message": "No input data received"}), 400
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
 
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
-
-    if not username or not email or not password:
+    if not (username and email and password):
         return jsonify({"message": "All fields are required"}), 400
 
-    email_regex = r'^[^@]+@[^@]+\.[^@]+$'
-    if not re.match(email_regex, email):
-        return jsonify({"message": "Invalid email format"}), 400
+    existing_user = users_collection.find_one({"email": email})
+    if existing_user:
+        return jsonify({"message": "Email already registered"}), 400
 
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    try:
-        connection = connect_db()
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-            if cursor.fetchone():
-                return jsonify({"message": "Email already registered"}), 409
+    new_user = {
+        "username": username,
+        "email": email,
+        "password": hashed_password
+    }
 
-            cursor.execute("INSERT INTO users (username, email, password_hash) VALUES (%s, %s, %s)",
-                           (username, email, hashed_password.decode('utf-8')))
-            connection.commit()
+    inserted = users_collection.insert_one(new_user)
+    return jsonify({"message": "Registration successful", "user_id": str(inserted.inserted_id)}), 200
 
-        return jsonify({"message": "User registered successfully"}), 201
-
-    except pymysql.MySQLError as e:
-        return jsonify({"message": "Database error", "error": str(e)}), 500
-
-    finally:
-        connection.close()
-
+# -------------------- Login Route (JWT Issued) --------------------
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
+    email = data.get("email")
+    password = data.get("password")
 
-    if not email or not password:
+    if not (email and password):
         return jsonify({"message": "Email and password are required"}), 400
 
-    try:
-        connection = connect_db()
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-            user = cursor.fetchone()
+    user = users_collection.find_one({"email": email})
+    if not user or not bcrypt.checkpw(password.encode('utf-8'), user["password"]):
+        return jsonify({"message": "Invalid credentials"}), 401
 
-            if user and bcrypt.checkpw(password.encode('utf-8'), user['password_hash'].encode('utf-8')):
-                user_id = user['id']
-                username = user['username']
+    token = jwt.encode({
+        "user_id": str(user["_id"]),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1)
+    }, SECRET_KEY, algorithm="HS256")
 
-                token = jwt.encode(
-                    {
-                        'user_id': user_id,
-                        'username': username,
-                        'exp': datetime.utcnow() + timedelta(hours=1)
-                    },
-                    JWT_SECRET,
-                    algorithm='HS256'
-                )
+    return jsonify({
+        "message": "Login successful",
+        "token": token,
+        "user": {
+            "id": str(user["_id"]),
+            "username": user["username"]
+        }
+    }), 200
 
-                return jsonify({
-                    "message": "Login successful",
-                    "user": {"id": user_id, "username": username},
-                    "token": token
-                }), 200
+# -------------------- Protected Route Example --------------------
+@app.route('/profile', methods=['GET'])
+@token_required
+def profile(current_user):
+    return jsonify({
+        "username": current_user["username"],
+        "email": current_user["email"]
+    }), 200
 
-            else:
-                return jsonify({"message": "Invalid email or password"}), 401
-
-    except pymysql.MySQLError as e:
-        return jsonify({"message": "Database error", "error": str(e)}), 500
-
-    finally:
-        connection.close()
-
+# -------------------- Main --------------------
 if __name__ == '__main__':
-    init_db()
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True)
