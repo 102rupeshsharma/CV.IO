@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Provider store={store}>
             <App />
             <ToastContainer
-                position="bottom-right"
+                position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={true}

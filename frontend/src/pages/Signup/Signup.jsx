@@ -9,7 +9,7 @@ export const Signup = () => {
   const apiUrl = import.meta.env.VITE_REGISTER_URL;
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     username: '',
     email: '',
@@ -26,12 +26,12 @@ export const Signup = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-  
+    setIsLoading(true);
+
     if (!form.username || !form.email || !form.password) {
       toast.warning("All fields are required!");
       return;
     }
-    setLoading(true);
   
     try {
       const response = await fetch(apiUrl, {
@@ -48,7 +48,7 @@ export const Signup = () => {
       }
   
       if (response.ok) {
-        setLoading(false);
+        setIsLoading(false);
         navigate("/login", {
           state: {
             fromRegister: true,
@@ -60,15 +60,20 @@ export const Signup = () => {
       }
   
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
       toast.error(error.message || "Error in registration!");
-      setLoading(false);
     }
   };
   
 
   return (
     <div className="signup-container">
+      {isLoading && (
+        <div className="full-page-loader">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="signup-auth-box">
         <div className="signup-section">
           <div className="heading" style={{ display: 'flex', justifyContent: 'center', fontSize: "35px" }}>
@@ -83,7 +88,6 @@ export const Signup = () => {
                 placeholder="Username"
                 value={form.username}
                 onChange={handleChange}
-                disabled={loading}
               />
               <span><FontAwesomeIcon icon={faUser} /></span>
             </div>
@@ -95,7 +99,7 @@ export const Signup = () => {
                 placeholder="Email"
                 value={form.email}
                 onChange={handleChange}
-                disabled={loading}
+                
               />
               <span><FontAwesomeIcon icon={faEnvelope} /></span>
             </div>
@@ -107,7 +111,7 @@ export const Signup = () => {
                 placeholder="Password"
                 value={form.password}
                 onChange={handleChange}
-                disabled={loading}
+                
               />
               <span><FontAwesomeIcon icon={faLock} /></span>
             </div>
@@ -117,13 +121,13 @@ export const Signup = () => {
                 type="checkbox"
                 checked={showPassword}
                 onChange={() => setShowPassword(!showPassword)}
-                disabled={loading}
+                
               />
               <label>Show password</label>
             </span>
 
             <div className="register-btn">
-              <button type="submit" disabled={loading}>Register</button>
+              <button type="submit" >Register</button>
             </div>
           </form>
 
@@ -140,7 +144,7 @@ export const Signup = () => {
         <div className="login-info">
           <p style={{ fontSize: "40px" }}>Welcome Back!</p>
           <p style={{ fontSize: "15px" }}>Already have an account?</p>
-          <button onClick={() => navigate("/login")} disabled={loading}>Login</button>
+          <button onClick={() => navigate("/login")} disabled={isLoading}>Login</button>
         </div>
       </div>
     </div>
