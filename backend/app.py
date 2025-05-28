@@ -7,7 +7,10 @@ import bcrypt
 import jwt
 import os
 import datetime
+import requests 
 from functools import wraps
+from google.oauth2 import id_token
+from google.auth.transport import requests as grequests
 
 # -------------------- Load .env variables --------------------
 load_dotenv()
@@ -103,6 +106,68 @@ def login():
             "username": user["username"]
         }
     }), 200
+
+# -------------------- Google Login Route --------------------
+@app.route('/google-login', methods=['POST'])
+def google_login():
+    data = request.get_json()
+    access_token = data.get("access_token")
+
+    if not access_token:
+        return jsonify({"message": "Access token is required"}), 400
+
+    try:
+        # Use the access token to fetch user info from Google
+        google_user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
+        response = requests.get(
+            google_user_info_url,
+            headers={"Authorization": f"Bearer {access_token}"}
+        )
+
+        if response.status_code != 200:
+            return jsonify({"message": "Failed to fetch user info from Google"}), 400
+
+        user_info = response.json()
+        email = user_info.get("email")
+        name = user_info.get("name")
+
+        if not email:
+            return jsonify({"message": "Email not found in Google user info"}), 400
+
+        # Check if user exists
+        user = users_collection.find_one({"email": email})
+        if not user:
+            # Register user
+            new_user = {
+                "username": name,
+                "email": email,
+                "password": None,
+                "google": True
+            }
+            inserted = users_collection.insert_one(new_user)
+            user_id = str(inserted.inserted_id)
+        else:
+            user_id = str(user["_id"])
+
+        # Generate JWT
+        jwt_token = jwt.encode({
+            "user_id": user_id,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1)
+        }, SECRET_KEY, algorithm="HS256")
+
+        return jsonify({
+            "message": "Google login successful",
+            "token": jwt_token,
+            "user": {
+                "id": user_id,
+                "username": name,
+                "email": email
+            }
+        }), 200
+
+    except Exception as e:
+        return jsonify({"message": "Error during Google login", "error": str(e)}), 500
+
 
 # -------------------- Protected Route Example --------------------
 @app.route('/profile', methods=['GET'])

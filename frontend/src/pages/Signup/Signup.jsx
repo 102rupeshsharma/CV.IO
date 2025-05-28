@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import './Signup.css';
 import { toast } from 'react-toastify';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 export const Signup = () => {
   const apiUrl = import.meta.env.VITE_REGISTER_URL;
+  const googleLoginUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL;
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +21,7 @@ export const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value
-    });
+    setForm({ ...form, [name]: value });
   };
 
   const handleRegister = async (e) => {
@@ -30,42 +30,64 @@ export const Signup = () => {
 
     if (!form.username || !form.email || !form.password) {
       toast.warning("All fields are required!");
+      setIsLoading(false);
       return;
     }
-  
+
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       });
-  
-      let data = {};
-      try {
-        data = await response.json()
-      } catch {
-        data = { message: "Server returned an empty or invalid response" };
-      }
-  
+
+      const data = await response.json();
+
       if (response.ok) {
-        setIsLoading(false);
         navigate("/login", {
           state: {
             fromRegister: true,
-            message: data.message || "Registration successful. Please check your email.",
+            message: data.message || "Registration successful!",
           },
         });
       } else {
         throw new Error(data.message || "Registration failed");
       }
-  
     } catch (error) {
-      setIsLoading(false);
       console.error(error);
       toast.error(error.message || "Error in registration!");
+    } finally {
+      setIsLoading(false);
     }
   };
-  
+
+  // ✅ Google Login
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setIsLoading(true);
+      try {
+        const res = await axios.post(googleLoginUrl, {
+          access_token: tokenResponse.access_token,
+        });
+
+        const data = res.data;
+        localStorage.setItem("username", data.user.username);
+        localStorage.setItem("user_id", data.user.id);
+        localStorage.setItem("token", data.token);
+        toast.success("Google login successful!");
+        navigate("/");
+      } catch (error) {
+        toast.error("Google login failed.");
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    onError: () => {
+      toast.error("Google login was cancelled or failed.");
+    },
+    flow: "implicit",
+  });
 
   return (
     <div className="signup-container">
@@ -99,7 +121,6 @@ export const Signup = () => {
                 placeholder="Email"
                 value={form.email}
                 onChange={handleChange}
-                
               />
               <span><FontAwesomeIcon icon={faEnvelope} /></span>
             </div>
@@ -111,7 +132,6 @@ export const Signup = () => {
                 placeholder="Password"
                 value={form.password}
                 onChange={handleChange}
-                
               />
               <span><FontAwesomeIcon icon={faLock} /></span>
             </div>
@@ -121,20 +141,19 @@ export const Signup = () => {
                 type="checkbox"
                 checked={showPassword}
                 onChange={() => setShowPassword(!showPassword)}
-                
               />
               <label>Show password</label>
             </span>
 
             <div className="register-btn">
-              <button type="submit" >Register</button>
+              <button type="submit" disabled={isLoading}>Register</button>
             </div>
           </form>
 
           <p className="social-text">or register with social platforms</p>
 
           <div className="social-icons">
-            <button className="google-btn">
+            <button className="google-btn" onClick={() => googleLogin()}>
               <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" />
               Sign in with Google
             </button>
