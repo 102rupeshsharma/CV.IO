@@ -9,7 +9,7 @@ import './Login.css';
 
 export const Login = () => {
   const apiUrl = import.meta.env.VITE_LOGIN_URL;
-  const googleLoginUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL; // e.g., http://localhost:10000/google-login
+  const googleLoginUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL;
   const navigate = useNavigate();
   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);

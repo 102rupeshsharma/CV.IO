@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 createRoot(document.getElementById('root')).render(
     <Router>
 
-        <GoogleOAuthProvider clientId="26290190977-toqhf206o4i5egca82v76r4jnocjcto7.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
             <Provider store={store}>
                 <App />
                 <ToastContainer
