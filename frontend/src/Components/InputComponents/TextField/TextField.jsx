@@ -20,43 +20,48 @@ function TextField(props) {
     return errorMessage;
   };
 
+  // Send validation result to parent on value change
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const errorMessage = checkValidation(value);
-      if (props.onChange) {
-        props.onChange(value, errorMessage);
-      }
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
+    const errorMessage = checkValidation(value);
+    if (props.onChange) {
+      props.onChange(value, errorMessage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
+  // Also validate when `showErrorMessages` is toggled (user tries to go next)
+  useEffect(() => {
+    const errorMessage = checkValidation(value);
+    if (props.onChange) {
+      props.onChange(value, errorMessage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showErrorMessages]);
 
   const errorMessage = checkValidation(value);
 
   return (
-    <>
-      <div className={`textfield-wrapper ${props.size === 'small' ? 'textfield-wrapper-small' : ''}`}>
-        <label htmlFor={props.elementId} className='textfield-label'>
-          {props.label}
-          {props.validation?.required && <span className="required-asterisk">&nbsp;*</span>}
-        </label>
-        <input
-          id={props.elementId}
-          className={`textfield-input 
-            ${((value !== "" || showErrorMessages) && errorMessage !== "") ? 'input-error' : ''} 
-            ${props.size === 'small' ? 'textfield-small' : ''}`}
-          type={props.type || "text"}
-          value={value}
-          placeholder={props.placeholder}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        {((value !== "" || showErrorMessages) && errorMessage !== "") && (
-          <div className='textfield-error'>
-            {errorMessage}
-          </div>
-        )}
-      </div>
-    </>
+    <div className={`textfield-wrapper ${props.size === 'small' ? 'textfield-wrapper-small' : ''}`}>
+      <label htmlFor={props.elementId} className='textfield-label'>
+        {props.label}
+        {props.validation?.required && <span className="required-asterisk">&nbsp;*</span>}
+      </label>
+      <input
+        id={props.elementId}
+        className={`textfield-input 
+          ${((value !== "" || showErrorMessages) && errorMessage !== "") ? 'input-error' : ''} 
+          ${props.size === 'small' ? 'textfield-small' : ''}`}
+        type={props.type || "text"}
+        value={value}
+        placeholder={props.placeholder}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      {((value !== "" || showErrorMessages) && errorMessage !== "") && (
+        <div className='textfield-error'>
+          {errorMessage}
+        </div>
+      )}
+    </div>
   );
 }
 

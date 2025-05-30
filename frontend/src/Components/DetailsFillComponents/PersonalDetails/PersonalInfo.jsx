@@ -14,11 +14,9 @@ const PersonalInfo = () => {
   const errorMessages = useSelector((state) => state.dataStore.errorMessages);
   const dispatch = useDispatch();
 
-  const onChangeHandler = (key, value, errorMessage = undefined) => {
+  const onChangeHandler = (key, value, errorMessage = '') => {
     dispatch(updatePersonalInfo({ key, value }));
-    if (submitted && errorMessage !== undefined) {
-      dispatch(updateErrorMessages({ key, value: errorMessage }));
-    }
+    dispatch(updateErrorMessages({ key, value: errorMessage }));
   };
 
   const goBack = () => {
@@ -55,7 +53,6 @@ const PersonalInfo = () => {
         </div>
 
         <div className="personalinfo-input-container">
-          {/* Input fields */}
           <div className="personalInfo-inputs">
             <TextField
               label="FIRST NAME"
@@ -64,7 +61,7 @@ const PersonalInfo = () => {
               type="text"
               value={personalHeads.firstName || ""}
               validation={{ required: true }}
-              onChange={(val, error) => onChangeHandler('firstName', val, error)}
+              onChange={(val, err) => onChangeHandler('firstName', val, err)}
             />
           </div>
 
@@ -76,7 +73,7 @@ const PersonalInfo = () => {
               type="text"
               value={personalHeads.lastName || ""}
               validation={{ required: true }}
-              onChange={(val, error) => onChangeHandler('lastName', val, error)}
+              onChange={(val, err) => onChangeHandler('lastName', val, err)}
             />
           </div>
 
@@ -87,7 +84,7 @@ const PersonalInfo = () => {
               placeholder="e.g. New Delhi"
               type="text"
               value={personalHeads.state || ""}
-              onChange={(val, error) => onChangeHandler('state', val, error)}
+              onChange={(val, err) => onChangeHandler('state', val, err)}
             />
           </div>
 
@@ -100,8 +97,8 @@ const PersonalInfo = () => {
                 placeholder="e.g. India"
                 type="text"
                 value={personalHeads.country || ""}
-                validation={{ required: true, message: "Country is required" }}
-                onChange={(val, error) => onChangeHandler('country', val, error)}
+                validation={{ required: true }}
+                onChange={(val, err) => onChangeHandler('country', val, err)}
               />
             </div>
             <div className="personalInfo-short-inputs">
@@ -117,7 +114,7 @@ const PersonalInfo = () => {
                   pattern: /^[1-9][0-9]{5}$/,
                   message: "PIN must be exactly 6 digits"
                 }}
-                onChange={(val, error) => onChangeHandler('pinCode', val, error)}
+                onChange={(val, err) => onChangeHandler('pinCode', val, err)}
               />
             </div>
           </div>
@@ -130,7 +127,7 @@ const PersonalInfo = () => {
               type="email"
               value={personalHeads.email || ""}
               validation={{ required: true, checkType: "email" }}
-              onChange={(val, error) => onChangeHandler('email', val, error)}
+              onChange={(val, err) => onChangeHandler('email', val, err)}
             />
           </div>
 
@@ -138,7 +135,7 @@ const PersonalInfo = () => {
             <TextField
               label="PHONE"
               elementId="phone"
-              placeholder="e.g. +91 74 1234 5677"
+              placeholder="e.g. +91 7412345677"
               type="text"
               value={personalHeads.phone || ""}
               validation={{
@@ -146,7 +143,7 @@ const PersonalInfo = () => {
                 pattern: /^[0-9]{10,15}$/,
                 message: "Phone must be at least 10 digits"
               }}
-              onChange={(val, error) => onChangeHandler('phone', val, error)}
+              onChange={(val, err) => onChangeHandler('phone', val, err)}
             />
           </div>
         </div>
